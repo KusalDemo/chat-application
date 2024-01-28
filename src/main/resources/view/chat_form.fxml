@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="772.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.ChatFormController">
+   <children>
+      <AnchorPane fx:id="header" prefHeight="106.0" prefWidth="598.0" style="-fx-background-color: #8C9DAD;">
+         <children>
+            <Label fx:id="lblUserName" layoutX="492.0" layoutY="51.0" prefHeight="16.0" prefWidth="106.0" textAlignment="RIGHT" />
+            <ImageView fitHeight="53.0" fitWidth="52.0" layoutX="13.0" layoutY="8.0">
+               <image>
+                  <Image url="@../asserts/images/messageLogo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="69.0" layoutY="17.0" text="StreamSync" textAlignment="CENTER">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="68.0" prefHeight="717.0" prefWidth="598.0" style="-fx-background-color: white; -fx-background-radius: 15 15 0 0;">
+         <children>
+            <ImageView fx:id="imgUser" fitHeight="48.0" fitWidth="65.0" layoutX="514.0" layoutY="-64.0" pickOnBounds="true" preserveRatio="true" />
+            <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="14.0" prefHeight="638.0" prefWidth="579.0">
+               <content>
+                  <VBox fx:id="vBox" prefHeight="633.0" prefWidth="566.0" />
+               </content>
+            </ScrollPane>
+            <AnchorPane layoutX="19.0" layoutY="658.0" prefHeight="55.0" prefWidth="520.0" style="-fx-background-color: #8C9DAD; -fx-background-radius: 16;">
+               <children>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="9.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../asserts/images/paperclipWhite.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="472.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../asserts/images/lolEmoji.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="txtMsg" layoutX="56.0" layoutY="7.0" onAction="#txtMessageOnAction" prefHeight="39.0" prefWidth="412.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="472.0" layoutY="7.0" mnemonicParsing="false" onAction="#emojiOnAction" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: transparent;" />
+                  <Button layoutX="10.0" layoutY="8.0" mnemonicParsing="false" onAction="#imgPapperClipOnAction" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: transparent;" />
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="542.0" layoutY="665.0">
+               <image>
+                  <Image url="@../asserts/images/sending.png" />
+               </image>
+            </ImageView>
+            <AnchorPane fx:id="emojiPane" layoutX="316.0" layoutY="557.0" prefHeight="129.0" prefWidth="275.0" visible="false">
+               <children>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="13.0" layoutY="10.0" onMouseClicked="#thumbsUpOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/thumbsup.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="66.0" layoutY="11.0" onMouseClicked="#smilingFaceWithHornsOnAction" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/smilingfacewithhorns.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="115.0" layoutY="12.0" onMouseClicked="#smilingFaceWithHeartEyesOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/smilingfacewithheart-eyes.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="168.0" layoutY="13.0" onMouseClicked="#sunglassesFaceOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/smilingfacewithsunglasses.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="221.0" layoutY="14.0" onMouseClicked="#cryingFaceOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/smilingfacewithtear.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="11.0" layoutY="65.0" onMouseClicked="#faceWithTearsOfJoyOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/facewithtears_of_joy.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="64.0" layoutY="66.0" onMouseClicked="#grinningFaceWithSweatOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/grinning_facewithsweat.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="67.0" onMouseClicked="#smilingFaceWithOpenHandsOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/smilingfacewithopenhands.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="166.0" layoutY="68.0" onMouseClicked="#grinningSquintingOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/grinning_squinting_face.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="219.0" layoutY="69.0" onMouseClicked="#grinningFaceEmojiOnAction" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+                     <image>
+                        <Image url="@../asserts/images/emoiji/grinning_face.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Button layoutX="544.0" layoutY="666.0" mnemonicParsing="false" onAction="#btnMesseageSendOnAction" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: transparent;" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
