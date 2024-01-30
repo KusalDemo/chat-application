@@ -3,30 +3,30 @@ package org.example.client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import lombok.Getter;
 import org.example.controller.ChatFormController;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.net.Socket;
-
+//4
+//This contains what client can do..
+//Yes This is a client..
 public class Client implements Runnable, Serializable {
     @Getter
     private final String name;
 
     @Getter
-    private ImageView imgUser;
+    private byte[] imgUser;
 
     private final Socket socket;
     private final DataInputStream dataInputStream;
     private final DataOutputStream dataOutputStream;
     private ChatFormController chatFormController;
 
-    public Client(String name, ImageView imgUser) throws IOException {
+    public Client(String name, byte[] imgUser) throws IOException {
         this.name = name;
         if(imgUser==null) {
 
@@ -52,7 +52,7 @@ public class Client implements Runnable, Serializable {
         chatFormController = fxmlLoader.getController();
         chatFormController.setClient(this);
         chatFormController.lblUserName.setText(name);
-        chatFormController.imgUser.setImage(imgUser.getImage());
+        chatFormController.imgUser.setImage(new Image(new ByteArrayInputStream(imgUser)));
         stage.setResizable(false);
         stage.setScene(new Scene(parent));
         stage.setTitle(name+" 's Chat");

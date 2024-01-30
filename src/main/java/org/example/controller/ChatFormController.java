@@ -54,6 +54,7 @@ public class ChatFormController {
             vBox.getChildren().add(hBox);
         } else {
             HBox hBox = new HBox();
+            hBox.setSpacing(10);
             hBox.setStyle("-fx-alignment: center-right;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
             Label messageLbl = new Label(message);
             messageLbl.setStyle("-fx-background-color:  #b2bec3;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: black;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
@@ -72,6 +73,7 @@ public class ChatFormController {
             try {
                 byte[] bytes = Files.readAllBytes(selectedFile.toPath());
                 HBox hBox = new HBox();
+                hBox.setSpacing(50);
                 hBox.setStyle("-fx-fill-height: true; -fx-min-height: 50; -fx-pref-width: 520; -fx-max-width: 520; -fx-padding: 10; -fx-alignment: center-right;");
 
                 // Display the image in an ImageView or any other UI component
@@ -172,6 +174,7 @@ public class ChatFormController {
 
     public void setImage(byte[] bytes,String sender){
         HBox hBox = new HBox();
+        hBox.setSpacing(50);
         Label messageLbl = new Label(sender);
         messageLbl.setStyle("-fx-background-color:   #648BB0;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
 
@@ -190,6 +193,7 @@ public class ChatFormController {
     public void writeMessage(String message) {
         //print msg on other clients
         HBox hBox = new HBox();
+        hBox.setSpacing(10);
         hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
         Label messageLbl = new Label(message);
         messageLbl.setStyle("-fx-background-color:   #648BB0;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");

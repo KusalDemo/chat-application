@@ -13,11 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.example.dto.UserDTO;
+import org.example.model.UserModel;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class SignUpFormController {
@@ -29,13 +29,25 @@ public class SignUpFormController {
     public PasswordField txtRePassword;
     public TextField txtEmail;
     private File file;
+    public byte[] imageData;
 
     public void btnSignUpOnAction(ActionEvent actionEvent) {
         if(!txtUserName.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtRePassword.getText().isEmpty()){
            if(Pattern.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", txtEmail.getText())){
                if(Pattern.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", txtPassword.getText())) {
                    if (txtPassword.getText().equals(txtRePassword.getText())) {
-
+                       UserDTO userDTO = new UserDTO( txtEmail.getText(),txtUserName.getText(),txtPassword.getText(), imageData);
+                       try {
+                           boolean isSaved = UserModel.saveUser(userDTO);
+                           if(isSaved) {
+                               new Alert(Alert.AlertType.INFORMATION, "Account Created,You Can now Login").show();
+                               btnAlreadyHaveAnAccountOnAction(actionEvent);
+                           }else{
+                               new Alert(Alert.AlertType.ERROR, "Not Saved").show();
+                           }
+                       } catch (SQLException e) {
+                           throw new RuntimeException(e);
+                       }
                    } else {
                        new Alert(Alert.AlertType.ERROR, "Password not matched").show();
                    }
@@ -56,7 +68,7 @@ public class SignUpFormController {
             Scene scene1 = new Scene(root);
             Stage stage1 = (Stage) btnAlreadyHaveAnAccount.getScene().getWindow();
             stage1.setScene(scene1);
-            stage1.setTitle("Employee Management");
+            stage1.setTitle("Login");
             stage1.centerOnScreen();
         }catch (IOException e){
             e.printStackTrace();
@@ -71,10 +83,16 @@ public class SignUpFormController {
         file = fileChooser.showOpenDialog(txtUserName.getScene().getWindow());
         if(file != null){
            try {
-               FileInputStream fileInputStream = new FileInputStream(file);
-               imgUser.setImage(new Image(fileInputStream));
+               FileInputStream fileInputStream = new FileInputStream(file.getAbsolutePath());
+               imageData = new byte[fileInputStream.available()];
+               fileInputStream.read(imageData);
+               imgUser.setImage(new Image(new ByteArrayInputStream(imageData)));
+               /*FileInputStream fileInputStream = new FileInputStream(file);
+               imgUser.setImage(new Image(fileInputStream));*/
            }catch (FileNotFoundException e){
                e.printStackTrace();
+           } catch (IOException e) {
+               throw new RuntimeException(e);
            }
         }
     }
