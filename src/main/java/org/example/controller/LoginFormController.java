@@ -35,6 +35,7 @@ public class LoginFormController {
     public static int oneTimePassword;
     public static String tempUserName;
 
+
     //1. If we gonna start the application we need to say to the server to start.
     //2. Then we need to create the server part..
     public void initialize() throws IOException {

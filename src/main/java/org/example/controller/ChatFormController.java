@@ -83,12 +83,12 @@ public class ChatFormController {
         String[] parts = message.split(" : ", 2); // Split the message into two parts: name and message
         String sender = parts[0].trim(); // Extract the sender's name
         String messageContent = parts[1]; // Extract the message content
-
+        //Get previous messages (Without dividing by sender's name)
         HBox hBox = new HBox();
         hBox.setSpacing(10);
-        Label messageLbl = new Label(messageContent);
-        messageLbl.setStyle("-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: black;-fx-wrap-text: true;-fx-padding: 10;-fx-max-width: 350;");
-        System.out.println(sender+" : "+lblUserName.getText()+name);
+        Label messageLbl = new Label(message);
+        messageLbl.setStyle("-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: #5d5d5d;-fx-wrap-text: true;-fx-padding: 10;-fx-max-width: 350;");
+        //System.out.println(sender+" : "+lblUserName.getText());
         if (sender.equals(lblUserName.getText())){
             // Message from the current user, align right
             hBox.setStyle("-fx-alignment: center-right;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
@@ -96,7 +96,7 @@ public class ChatFormController {
         } else {
             // Message from other user, align left
             hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
-            messageLbl.setStyle("-fx-background-color: rgb(128,128,128);-fx-background-radius:15;" + messageLbl.getStyle());
+            messageLbl.setStyle("-fx-background-color: rgb(189,185,185);-fx-background-radius:15;" + messageLbl.getStyle());
         }
 
         hBox.getChildren().add(messageLbl);
