@@ -13,11 +13,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.client.Client;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
+import java.util.Formatter;
 import java.util.Optional;
 
 public class ChatFormController {
@@ -31,9 +29,28 @@ public class ChatFormController {
     private Client client;
     public Label lblUserName;
     private LoginFormController loginFormController;
+    private FileWriter fileWriter;
+    private Formatter formatter;
+    public String name;
 
-    public void initialize() {
+    public void initialize() throws IOException {
+
+//        fileWriter = new FileWriter("/home/kitty/Documents/chat-Backup.txt", true);
+//        formatter = new Formatter(fileWriter);
         lblUserName.setText(LoginFormController.name);
+        loadSavedMessages();
+    }
+
+    private void loadSavedMessages() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("/home/kitty/GDSE67/ClientServerArchitecture/chat-application (copy)/src/main/resources/asserts/images/chatBackup/backup.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Append each line to the chat interface
+                appendTextBackups(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setClient(Client client) throws IOException {
@@ -61,6 +78,29 @@ public class ChatFormController {
             hBox.getChildren().add(messageLbl);
             vBox.getChildren().add(hBox);
         }
+    }
+    private void appendTextBackups(String message) {
+        String[] parts = message.split(" : ", 2); // Split the message into two parts: name and message
+        String sender = parts[0].trim(); // Extract the sender's name
+        String messageContent = parts[1]; // Extract the message content
+
+        HBox hBox = new HBox();
+        hBox.setSpacing(10);
+        Label messageLbl = new Label(messageContent);
+        messageLbl.setStyle("-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: black;-fx-wrap-text: true;-fx-padding: 10;-fx-max-width: 350;");
+        System.out.println(sender+" : "+lblUserName.getText()+name);
+        if (sender.equals(lblUserName.getText())){
+            // Message from the current user, align right
+            hBox.setStyle("-fx-alignment: center-right;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
+            messageLbl.setStyle("-fx-background-color:  #b2bec3;-fx-background-radius:15;" + messageLbl.getStyle());
+        } else {
+            // Message from other user, align left
+            hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
+            messageLbl.setStyle("-fx-background-color: rgb(128,128,128);-fx-background-radius:15;" + messageLbl.getStyle());
+        }
+
+        hBox.getChildren().add(messageLbl);
+        vBox.getChildren().add(hBox);
     }
 
     public void imgPapperClipOnAction(ActionEvent actionEvent) {
@@ -196,8 +236,23 @@ public class ChatFormController {
         hBox.setSpacing(10);
         hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
         Label messageLbl = new Label(message);
+        //======================================================================
+        try {
+            fileWriter = new FileWriter("/home/kitty/GDSE67/ClientServerArchitecture/chat-application (copy)/src/main/resources/asserts/images/chatBackup/backup.txt", true);
+            // Create a Formatter with the FileWriter
+            formatter = new Formatter(fileWriter);
+            // Write to the file
+            formatter.format(messageLbl.getText() + "%n");
+            // Close the resources
+            formatter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //=========================================================================
         messageLbl.setStyle("-fx-background-color:   #648BB0;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
         hBox.getChildren().add(messageLbl);
         Platform.runLater(() -> vBox.getChildren().add(hBox));
+
     }
 }

@@ -26,6 +26,7 @@ public class Client implements Runnable, Serializable {
     private final DataOutputStream dataOutputStream;
     private ChatFormController chatFormController;
 
+
     public Client(String name, byte[] imgUser) throws IOException {
         this.name = name;
         if(imgUser==null) {
